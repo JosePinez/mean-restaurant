@@ -8,4 +8,4 @@ const RestaurantSchema = new Schema({
     timeTable: {type: String, required: true}
 });
 
-module.exports = moongose.model('Restaurants', RestaurantSchema);
+module.exports = mongoose.model('Restaurants', RestaurantSchema);

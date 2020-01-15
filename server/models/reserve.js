@@ -6,4 +6,4 @@ const ReserveSchema = new Schema({
     time: {type: String, required: true}
 });
 
-module.exports = moongose.model('Reserves', ReserveSchema);
+module.exports = mongoose.model('Reserves', ReserveSchema);

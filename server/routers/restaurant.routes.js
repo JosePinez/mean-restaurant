@@ -1,8 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const restaurantCtrl = require('../controllers/restaurant.controllers');
 
-router.get('/',(req,res) =>{
-    res.send('hello word');
-});
+
+router.get('/', restaurantCtrl.getRestaurants);
+router.post('/', restaurantCtrl.createRestaurant);
+router.get('/:id', restaurantCtrl.getRestaurant);
+router.put('/:id', restaurantCtrl.editRestaurant);
+router.delete('/:id', restaurantCtrl.deleteRestaurant);
+
 
 module.exports = router;
