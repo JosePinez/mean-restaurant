@@ -22,7 +22,7 @@ userCtrl.createUser = async (req,res) =>{
         await user.save();
         res.json({status: 'User saved'});
     }catch (error){
-        res.json({status:'Failed to create user'})
+        res.json({status:'Fail to create user'});
     }
 };
 
@@ -33,7 +33,8 @@ userCtrl.editUser = async (req,res) => {
             name: req.body.name,
             dni: req.body.dni,
             email: req.body.email,
-            tel: req.body.tel
+            tel: req.body.tel,
+            admin: req.body.admin
         };
         await User.findByIdAndUpdate(id, {$set:menu}, {new: true});
         res.json({status:'User updated'})
