@@ -18,7 +18,10 @@ menuCtrl.getMenu = async (req,res) =>{
 
 menuCtrl.createMenu = async (req,res) =>{
     try{
-        const menu = new Menu(req.body);
+        const menu = new Menu({
+            id_restaurant: req.body.id_restaurant,
+            product: req.body.product
+        });
         await menu.save();
         res.json({status: 'Menu saved'});
     }catch (error){
@@ -30,6 +33,7 @@ menuCtrl.editMenu = async (req,res) => {
     try{
         const { id } = req.params;
         const menu = {
+            id_restaurant: req.body.id_restaurant,
             product: req.body.product
         };
         await Menu.findByIdAndUpdate(id, {$set:menu}, {new: true});

@@ -18,7 +18,13 @@ userCtrl.getUser= async (req,res) =>{
 
 userCtrl.createUser = async (req,res) =>{
     try{
-        const user = new User(req.body);
+        const user = new User({
+            name: req.body.name,
+            dni: req.body.dni,
+            email: req.body.email,
+            tel: req.body.tel,
+            admin: req.body.admin
+        });
         await user.save();
         res.json({status: 'User saved'});
     }catch (error){

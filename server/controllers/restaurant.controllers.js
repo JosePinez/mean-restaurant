@@ -18,7 +18,12 @@ restaurantCtrl.getRestaurant = async (req,res) =>{
 
 restaurantCtrl.createRestaurant = async (req,res) =>{
     try{
-        const restaurant = new Restaurant(req.body);
+        const restaurant = new Restaurant({
+            name: req.body.name,
+            address: req.body.address,
+            capacity: req.body.capacity,
+            timeTable: req.body.timeTable
+        });
         await restaurant.save();
         res.json({status: 'Restaurant saved'});
     }catch (error){

@@ -18,7 +18,11 @@ tableCtrl.getTable = async (req,res) =>{
 
 tableCtrl.createTable = async (req,res) =>{
     try{
-        const table = new Table(req.body);
+        const table = new Table({
+            id_restaurant: req.body.id_restaurant,
+            number: req.body.number,
+            capacity: req.body.capacity
+        });
         await table.save();
         res.json({status: 'Table saved'});
     }catch (error){
@@ -30,6 +34,7 @@ tableCtrl.editTable = async (req,res) => {
     try{
         const { id } = req.params;
         const table = {
+            id_restaurant: req.body.id_restaurant,
             number: req.body.number,
             capacity: req.body.capacity
         };

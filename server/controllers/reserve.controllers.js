@@ -18,7 +18,11 @@ reserveCtrl.getReserve = async (req,res) =>{
 
 reserveCtrl.createReserve = async (req,res) =>{
     try{
-        const reserve = new Reserve(req.body);
+        const reserve = new Reserve({
+            id_restaurant: req.body.id_restaurant,
+            date: req.body.date,
+            time: req.body.time
+        });
         await reserve.save();
         res.json({status: 'Reserved saved'});
     }catch (error){
@@ -30,6 +34,7 @@ reserveCtrl.editReserve = async (req,res) => {
     try{
         const { id } = req.params;
         const reserve = {
+            id_restaurant: req.body.id_restaurant,
             date: req.body.date,
             time: req.body.time
         };
