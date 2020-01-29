@@ -15,7 +15,6 @@ app.use(cors({origin: 'http://localhost:4200'}));
 app.use('/api/restaurant', require('./routers/restaurant.routes'));
 app.use('/api/menu', require('./routers/menu.routes'));
 app.use('/api/reserve', require('./routers/reserve.routes'));
-app.use('/api/table', require('./routers/table.routes'));
 app.use('/api/user', require('./routers/user.routes'));
 //Starting the server
 app.listen(app.get('port'), ()=>{

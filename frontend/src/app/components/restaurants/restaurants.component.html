@@ -6,27 +6,34 @@
             <div class="card">
                 <div class="card-content">
                     <form #restaurantForm="ngForm" (ngSubmit)="addRestaurant(restaurantForm)">
-                    <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="restaurantService.selectedRestaurant._id">
+                        <input type="hidden" name="_id" #_id="ngModel"
+                            [(ngModel)]="restaurantService.selectedRestaurant._id">
                         <div class="row">
                             <div class="input-field col s12">
                                 <input type="text" name="name" #name="ngModel"
-                                 [(ngModel)]="restaurantService.selectedRestaurant.name" placeholder="Enter its name">
+                                    [(ngModel)]="restaurantService.selectedRestaurant.name"
+                                    placeholder="Enter its name">
                             </div>
                             <div class="input-field col s12">
                                 <input type="text" name="address" #addres="ngModel"
-                                 [(ngModel)]="restaurantService.selectedRestaurant.address" placeholder="Enter its address">
+                                    [(ngModel)]="restaurantService.selectedRestaurant.address"
+                                    placeholder="Enter its address">
                             </div>
                             <div class="input-field col s12">
                                 <input type="number" name="capacity" #capacity="ngModel"
-                                 [(ngModel)]="restaurantService.selectedRestaurant.capacity" placeholder="Enter its capacity">
+                                    [(ngModel)]="restaurantService.selectedRestaurant.capacity"
+                                    placeholder="Enter its capacity">
                             </div>
                             <div class="input-field col s12">
                                 <input type="text" name="timeTable" #timeTable="ngModel"
-                                 [(ngModel)]="restaurantService.selectedRestaurant.timeTable" placeholder="Enter its timeTable">
+                                    [(ngModel)]="restaurantService.selectedRestaurant.timeTable"
+                                    placeholder="Enter its timeTable">
                             </div>
-                            <div class="input-field col s12">
-                                <button class="btn" (click)="resetForm(restaurantForm)">Clean</button>
-                                <button class="btn right">Save</button>
+                            <div class="card-content">
+                                <div class="input-field col s12">
+                                    <button class="btn" (click)="resetForm(restaurantForm)">Clean</button>
+                                    <button class="btn right">Save</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -44,18 +51,18 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let restaurant of restaurantService.restaurants">
-                    <td>{{restaurant.name}}</td>
-                    <td>{{restaurant.address}}</td>
-                    <td>{{restaurant.capacity}}</td>
-                    <td>{{restaurant.timeTable}}</td>
-                    <td>
-                        <a (click)="editRestaurant(restaurant)">
-                            <i class="material-icons">edit</i>
-                        </a>
-                        <a (click)="deleteRestaurant(restaurant._id)">
-                            <i class="material-icons">delete</i>
-                        </a>
-                    </td>
+                        <td>{{restaurant.name}}</td>
+                        <td>{{restaurant.address}}</td>
+                        <td>{{restaurant.capacity}}</td>
+                        <td>{{restaurant.timeTable}}</td>
+                        <td>
+                            <a (click)="editRestaurant(restaurant)">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a (click)="deleteRestaurant(restaurant._id)">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { MenusComponent } from './components/menus/menus.component';
 import { ReservesComponent } from './components/reserves/reserves.component';
-import { TablesComponent } from './components/tables/tables.component';
 import { UsersComponent } from './components/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -16,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     RestaurantsComponent,
     MenusComponent,
     ReservesComponent,
-    TablesComponent,
     UsersComponent
   ],
   imports: [

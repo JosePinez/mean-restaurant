@@ -17,49 +17,49 @@ export class RestaurantsComponent implements OnInit {
   ngOnInit() {
     this.getRestaurants();
   }
-  addRestaurant(form:NgForm){
-    if(form.value._id){
+  addRestaurant(form: NgForm) {
+    if (form.value._id) {
       this.restaurantService.editRestaurant(form.value)
-      .subscribe(res => {
-        console.log(res);
-        this.resetForm(form);
-        M.toast({html:'Restaurant updated successfully'});
-        this.getRestaurants();
-      })
-    }else{
+        .subscribe(res => {
+          console.log(res);
+          this.resetForm(form);
+          M.toast({ html: 'Restaurant updated successfully' });
+          this.getRestaurants();
+        })
+    } else {
       this.restaurantService.createRestaurant(form.value)
-      .subscribe(res => {
-        console.log(res);
-        this.resetForm(form);
-        M.toast({html:'Restaurant saved successfully'});
-        this.getRestaurants();
-      })
+        .subscribe(res => {
+          console.log(res);
+          this.resetForm(form);
+          M.toast({ html: 'Restaurant saved successfully' });
+          this.getRestaurants();
+        });
     }
   }
 
-  getRestaurants(){
+  getRestaurants() {
     this.restaurantService.getRestaurants()
-    .subscribe(res =>{
-      this.restaurantService.restaurants = res as Restaurant[];
-      console.log(res);
-    })
+      .subscribe(res => {
+        this.restaurantService.restaurants = res as Restaurant[];
+        console.log(res);
+      })
   }
-  editRestaurant(restaurant: Restaurant){
+  editRestaurant(restaurant: Restaurant) {
     this.restaurantService.selectedRestaurant = restaurant;
   }
-  resetForm(form?: NgForm){
-    if(form){
+  resetForm(form?: NgForm) {
+    if (form) {
       form.reset();
       this.restaurantService.selectedRestaurant = new Restaurant();
     }
   }
-  deleteRestaurant(_id: string){
-    if(confirm('Are you sure you want delete it?')){
+  deleteRestaurant(_id: string) {
+    if (confirm('Are you sure you want delete it?')) {
       this.restaurantService.deleteRestaurant(_id)
-      .subscribe( res =>{
-        this.getRestaurants();
-        M.toast({html: 'Restaurant deleted successfully'})
-      })
+        .subscribe(res => {
+          this.getRestaurants();
+          M.toast({ html: 'Restaurant deleted successfully' })
+        })
     }
   }
 }
