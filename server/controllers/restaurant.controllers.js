@@ -34,13 +34,13 @@ restaurantCtrl.createRestaurant = async (req,res) =>{
 restaurantCtrl.editRestaurant = async (req,res) => {
     try{
         const { id } = req.params;
-        const reserve = {
+        const restaurant = {
             name: req.body.name,
             address: req.body.address,
             capacity: req.body.capacity,
             timeTable: req.body.timeTable
         };
-        await Restaurant.findByIdAndUpdate(id, {$set:menu}, {new: true});
+        await Restaurant.findByIdAndUpdate(id, {$set:restaurant}, {new: true});
         res.json({status:'Restaurant updated'})
     }catch (error){
         res.json({status:'Failed to edit restaurant'})

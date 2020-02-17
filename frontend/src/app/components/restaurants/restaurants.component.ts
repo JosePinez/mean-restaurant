@@ -21,15 +21,13 @@ export class RestaurantsComponent implements OnInit {
     if (form.value._id) {
       this.restaurantService.editRestaurant(form.value)
         .subscribe(res => {
-          console.log(res);
           this.resetForm(form);
           M.toast({ html: 'Restaurant updated successfully' });
           this.getRestaurants();
-        })
+        });
     } else {
       this.restaurantService.createRestaurant(form.value)
         .subscribe(res => {
-          console.log(res);
           this.resetForm(form);
           M.toast({ html: 'Restaurant saved successfully' });
           this.getRestaurants();

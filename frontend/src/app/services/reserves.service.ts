@@ -1,9 +1,29 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Reserve } from '../models/reserve';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservesService {
 
-  constructor() { }
+  readonly URL_API = 'http://localhost:3000/api/reserve';
+  public selectedReserve: Reserve;
+  public reserves: Reserve[];
+  constructor(private http: HttpClient) {
+    this.selectedReserve = new Reserve();
+  }
+  getReserves() {
+    return this.http.get(this.URL_API);
+  }
+  createReserve(reserve: Reserve) {
+    return this.http.post(this.URL_API, reserve);
+  }
+  editReserve(reserve: Reserve) {
+    return this.http.put(this.URL_API + `/${reserve._id}`, reserve);
+  }
+  deleteReserve(_id: String) {
+    return this.http.delete(this.URL_API + `/${_id}`);
+  }
 }

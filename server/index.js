@@ -13,10 +13,9 @@ app.use(express.json());
 app.use(cors({origin: 'http://localhost:4200'}));
 //Routes
 app.use('/api/restaurant', require('./routers/restaurant.routes'));
-app.use('/api/menu', require('./routers/menu.routes'));
 app.use('/api/reserve', require('./routers/reserve.routes'));
 app.use('/api/user', require('./routers/user.routes'));
 //Starting the server
 app.listen(app.get('port'), ()=>{
-    console.log("Server on port 4000");
+    console.log("Server on port 3000");
 });

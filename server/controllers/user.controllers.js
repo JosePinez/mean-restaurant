@@ -1,60 +1,66 @@
 const User = require('../models/user');
+const bcrypt = require('bcrypt-nodejs');
+const jwtServices = require('../services/jwt.services');
 
 const userCtrl = {};
 
-userCtrl.getUsers = async (req,res) =>{
-    const users = await User.find();
-    res.json(users);
-};
+userCtrl.saveUser = (req,res) =>{
+    const user = new User();
+    var params = req.body;
 
-userCtrl.getUser= async (req,res) =>{
-    try{
-        const user = await user.findById(req.params.id);
-        res.json(user);
-    }catch (error){
-        res.json({status:'User not found'})
-    }
-};
+    user.name = params.name;
+    user.surname = params.surname;
+    user.email = params.email;
+    user.role = 'ROLE_USER';
+    user.image = 'null';
 
-userCtrl.createUser = async (req,res) =>{
-    try{
-        const user = new User({
-            name: req.body.name,
-            dni: req.body.dni,
-            email: req.body.email,
-            tel: req.body.tel,
-            admin: req.body.admin
+    if(params.password){
+        //Crypt and save datas
+        bcrypt.hash(params.password,null,null,function(err,hash){
+            user.password = hash;
+            if(user.name != null && user.surname != null && user.email != null){
+                user.save()
+                .then(user =>{
+                    res.status(200).send({user:user});
+                })
+                .catch(err =>{
+                    res.status(500).send({message:err});
+                });
+            }else{
+                res.status(200).send({message:'Fill out form'});
+            }
         });
-        await user.save();
-        res.json({status: 'User saved'});
-    }catch (error){
-        res.json({status:'Fail to create user'});
+    }else{
+        res.status(200).send({message:'Enter the pass'});
     }
-};
+}
+userCtrl.loginUser = (req,res) =>{
+    var params = req.body;
 
-userCtrl.editUser = async (req,res) => {
-    try{
-        const { id } = req.params;
-        const user = {
-            name: req.body.name,
-            dni: req.body.dni,
-            email: req.body.email,
-            tel: req.body.tel,
-            admin: req.body.admin
-        };
-        await User.findByIdAndUpdate(id, {$set:menu}, {new: true});
-        res.json({status:'User updated'})
-    }catch (error){
-        res.json({status:'Failed to edit user'})
-    }
-};
+    var email = params.email;
+    var password = params.password;
 
-userCtrl.deleteUser = async (req,res) => {
-    try{
-        await User.findByIdAndDelete(req.params.id);
-        res.json({status: 'User deleted'})
-    }catch(error){
-        res.json({status:'User not exits'})
-    }
-};
+    User.findOne({email: email.toLoweCase()}, (err,user)=>{
+        if(err){
+            res.status(500).send({message: 'Error to server'});
+        }else{
+            if(!user){
+                res.status(404).send({message: 'User not found'});
+            }else{
+                bcrypt.compare(password,user.password,(err,check)=>{
+                    if(check){
+                        if(params.gethash){
+                            //Here return user token crypt
+                            res.status(200).send({token: jwtServices.createToken(user)})
+                        }else{
+                            res.status(200).send({user});
+                        }
+                    }else{
+                        res.status(404).send({message: 'User not login'});
+                    }
+                })
+            }
+        }
+    })
+}
 module.exports = userCtrl;

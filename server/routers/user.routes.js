@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/user.controllers');
-router.get('/', userCtrl.getUsers);
-router.post('/', userCtrl.createUser);
-router.get('/:id', userCtrl.getUser);
-router.put('/:id', userCtrl.editUser);
-router.delete('/:id', userCtrl.deleteUser);
+
+//Define API
+router.post('/register', userCtrl.saveUser);
+router.post('/login', userCtrl.loginUser);
 module.exports = router;

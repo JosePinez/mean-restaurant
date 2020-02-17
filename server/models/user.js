@@ -3,10 +3,11 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema({
     name: {type: String, required: true},
-    dni: {type: String, required: true},
+    surname: {type: String, required: true},
     email: {type: String, required: true},
-    tel: {type: String, required: true},
-    admin: {type: Boolean, required: true}
+    password: {type: String, required:true},
+    role: {type: String, required: true},
+    image: {type: String}
 });
 
 module.exports = mongoose.model('Users', UserSchema);
