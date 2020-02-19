@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Reserve } from '../models/reserve';
 
 
@@ -15,7 +15,13 @@ export class ReservesService {
     this.selectedReserve = new Reserve();
   }
   getReserves() {
-    return this.http.get(this.URL_API);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.get(this.URL_API,httpOptions);
   }
   createReserve(reserve: Reserve) {
     return this.http.post(this.URL_API, reserve);

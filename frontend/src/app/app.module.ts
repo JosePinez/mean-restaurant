@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { ReservesComponent } from './components/reserves/reserves.component';
-import { UsersComponent } from './components/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './views/home/home.component';
 import { ContactComponent } from './views/contact/contact.component';
@@ -16,7 +15,6 @@ import { MenuComponent } from './menu/menu/menu.component';
     AppComponent,
     RestaurantsComponent,
     ReservesComponent,
-    UsersComponent,
     HomeComponent,
     ContactComponent,
     MenuComponent

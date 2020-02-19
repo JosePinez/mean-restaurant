@@ -34,13 +34,12 @@ userCtrl.saveUser = (req,res) =>{
         res.status(200).send({message:'Enter the pass'});
     }
 }
-userCtrl.loginUser = (req,res) =>{
+userCtrl.loginUser = async (req,res) =>{
     var params = req.body;
 
     var email = params.email;
     var password = params.password;
-
-    User.findOne({email: email.toLoweCase()}, (err,user)=>{
+    User.findOne({email: email}, (err,user)=>{
         if(err){
             res.status(500).send({message: 'Error to server'});
         }else{
@@ -62,5 +61,15 @@ userCtrl.loginUser = (req,res) =>{
             }
         }
     })
+}
+
+userCtrl.getUsers =  async (req,res) =>{
+    try{
+        const users = await User.find();
+        res.json(users);
+    }catch(err){
+        res.json({status:'Teachers not found'})
+    }
+
 }
 module.exports = userCtrl;

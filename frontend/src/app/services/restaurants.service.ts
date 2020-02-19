@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Restaurant } from '../models/restaurant';
 
 @Injectable()
@@ -12,8 +12,13 @@ export class RestaurantsService {
    }
 
   getRestaurants(){
-    console.log(this.URL_API);
-    return this.http.get(this.URL_API);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.get(this.URL_API,httpOptions);
   }
   createRestaurant(restaurant: Restaurant){
     return this.http.post(this.URL_API, restaurant);

@@ -1,31 +1,44 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
+import { GLOBAL } from './global';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable()
 export class UsersService {
+  public url: string;
+  public identity;
+  public token;
 
-  readonly URL_API = 'http://localhost:3000/api/user';
-  selectedUser: User;
-  users: User[];
+  constructor(private http: HttpClient){
+    this.url = GLOBAL.url;
+  }
+  signUp(params){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(this.url + 'user/login',params,httpOptions);
+  }
 
-
-  constructor(private http: HttpClient) {
-    this.selectedUser = new User();
+  getIdentity(){
+    const identity = JSON.parse(localStorage.getItem('identity'));
+    if(identity != "undefined"){
+      this.identity = identity;
+    }else{
+      this.identity = null;
+    }
+    return this.identity;
   }
-  getUsers() {
-    return this.http.get(this.URL_API);
-  }
-  createUser(user: User) {
-    return this.http.post(this.URL_API, user);
-  }
-  editUser(user: User) {
-    return this.http.put(this.URL_API + `/${user._id}`, user);
-  }
-  deleteUser(_id: String) {
-    return this.http.delete(this.URL_API + `/${_id}`);
+  getToken(){
+    const token = localStorage.getItem('token');
+    if(token != "undefined"){
+      this.token = token;
+    }else{
+      this.token = null;
+    }
+    return this.token;
   }
 }

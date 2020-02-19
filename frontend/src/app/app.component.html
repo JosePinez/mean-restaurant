@@ -1,8 +1,46 @@
-<div>
+<div *ngIf="identity">
   <app-menu></app-menu>
+  <div>
+    Hi {{identity.name}}
+    <span class="btn btn-warning" (click)="logOut()">Log out here</span>
+  </div>
   <router-outlet></router-outlet>
 </div>
 
+<div *ngIf="!identity">
+  <div class="row">
+    <div class="col s6">
+        <h2>Login</h2>
+        <form #loginForm="ngForm" (ngSubmit)="onSubmitLogin(loginForm)"  class="col s7">
+          <p>
+            <label for="">Email</label><input type="email" #email="ngModel" name="email" [(ngModel)]="user.email" required>
+          </p>
+          <p>
+            <label for="">Password</label><input type="password" #password="ngModel" [(ngModel)]="user.password" name="password" id="" required>
+          </p>
+          <input type="submit" value="Login" class="btn">
+        </form>
+    </div>
+    <div class="col s6">
+      <h2>Register</h2>
+      <form action="" class="col s10">
+        <p>
+          <label for="">Name</label><input type="text" name="" id="" required>
+        </p>
+        <p>
+          <label for="">Surname</label><input type="text" name="" id="" required>
+        </p>
+        <p>
+          <label for="">Email</label><input type="text" name="" id="" required>
+        </p>
+        <p>
+          <label for="">Password</label><input type="password" name="" id="" required>
+        </p>
+        <input type="submit" value="Register" class="btn">
+      </form>
+    </div>
+  </div>
+</div>
 
 
 

@@ -10,4 +10,4 @@ const UserSchema = new Schema({
     image: {type: String}
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
