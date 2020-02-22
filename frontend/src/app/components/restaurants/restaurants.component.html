@@ -1,71 +1,115 @@
 <h4 class="align center">RESTAURANTES</h4>
-<hr>
-<div class="container">
-    <div class="row">
-        <div class="col s5">
-            <div class="card">
-                <div class="card-content">
-                    <form #restaurantForm="ngForm" (ngSubmit)="addRestaurant(restaurantForm)">
-                        <input type="hidden" name="_id" #_id="ngModel"
-                            [(ngModel)]="restaurantService.selectedRestaurant._id">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" name="name" #name="ngModel"
-                                    [(ngModel)]="restaurantService.selectedRestaurant.name"
-                                    placeholder="Enter its name">
-                            </div>
-                            <div class="input-field col s12">
-                                <input type="text" name="address" #addres="ngModel"
-                                    [(ngModel)]="restaurantService.selectedRestaurant.address"
-                                    placeholder="Enter its address">
-                            </div>
-                            <div class="input-field col s12">
-                                <input type="number" name="capacity" #capacity="ngModel"
-                                    [(ngModel)]="restaurantService.selectedRestaurant.capacity"
-                                    placeholder="Enter its capacity">
-                            </div>
-                            <div class="input-field col s12">
-                                <input type="text" name="timeTable" #timeTable="ngModel"
-                                    [(ngModel)]="restaurantService.selectedRestaurant.timeTable"
-                                    placeholder="Enter its timeTable">
-                            </div>
+<div *ngIf='identity.role.indexOf("ROLE_ADMIN")>=0' (click)="collapse()">
+    <ul class="collapsible" >
+        <li>
+          <div class="collapsible-header"><i class="material-icons">add_circle</i>Add Restaurant</div>
+          <div class="collapsible-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col s5">
+                        <div class="card">
                             <div class="card-content">
-                                <div class="input-field col s12">
-                                    <button class="btn" (click)="resetForm(restaurantForm)">Clean</button>
-                                    <button class="btn right">Save</button>
-                                </div>
+                                <form #restaurantForm="ngForm" (ngSubmit)="addRestaurant(restaurantForm)">
+                                    <input type="hidden" name="_id" #_id="ngModel"
+                                        [(ngModel)]="restaurantService.selectedRestaurant._id">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <input type="text" name="name" #name="ngModel"
+                                                [(ngModel)]="restaurantService.selectedRestaurant.name"
+                                                placeholder="Enter its name">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input type="text" name="address" #addres="ngModel"
+                                                [(ngModel)]="restaurantService.selectedRestaurant.address"
+                                                placeholder="Enter its address">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input type="number" name="capacity" #capacity="ngModel"
+                                                [(ngModel)]="restaurantService.selectedRestaurant.capacity"
+                                                placeholder="Enter its capacity">
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <input type="text" name="timeTable" #timeTable="ngModel"
+                                                [(ngModel)]="restaurantService.selectedRestaurant.timeTable"
+                                                placeholder="Enter its timeTable">
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="input-field col s12">
+                                                <button class="btn" (click)="resetForm(restaurantForm)">Clean</button>
+                                                <button class="btn right">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="col s7">
+                        <table>
+                            <thead>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Capacity</th>
+                                <th>TimeTable</th>
+                                <th>Options</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let restaurant of restaurantService.restaurants">
+                                    <td>{{restaurant.name}}</td>
+                                    <td>{{restaurant.address}}</td>
+                                    <td>{{restaurant.capacity}}</td>
+                                    <td>{{restaurant.timeTable}}</td>
+                                    <td>
+                                        <a (click)="editRestaurant(restaurant)">
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                        <a (click)="deleteRestaurant(restaurant._id)">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col s7">
-            <table>
-                <thead>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Capacity</th>
-                    <th>TimeTable</th>
-                    <th>Options</th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let restaurant of restaurantService.restaurants">
-                        <td>{{restaurant.name}}</td>
-                        <td>{{restaurant.address}}</td>
-                        <td>{{restaurant.capacity}}</td>
-                        <td>{{restaurant.timeTable}}</td>
-                        <td>
-                            <a (click)="editRestaurant(restaurant)">
-                                <i class="material-icons">edit</i>
-                            </a>
-                            <a (click)="deleteRestaurant(restaurant._id)">
-                                <i class="material-icons">delete</i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </div>
+        </li>
+      </ul>
+</div>
+<div class="row restaurant">
+    <div class="col l6 m6 s12 info">
+        <h1>La Gorda de las Setas</h1>
+        <p>Situado en una de las zonas más modernas de la ciudad, "la Gorda de las Setas" ofrece una amplia variedad de productos de comida mediterránea. Un ambiente expléndido para todo tipo de público. Además se encuentra cerca de pubs donde seguir disfrutando de una larga noche.</p>
+        <span class="icono"><i class="material-icons center danger ">access_time</i>12:00 - 23:00</span>
+        <span class="icono"><i class="material-icons center danger">place</i>Las Setas nº 4</span>
+        <span class="icono"><i class="material-icons center danger">date_range</i>De Lunes a Domingo</span>
+    </div>
+    <div class="col l6 m6 s12">
+        <img src="../../../assets/fondoHome.jpg" class="responsive-img" alt="">
+    </div>
+</div>
+<div class="row restaurant">
+    <div class="col l6 m6 s12 info">
+        <h1>La Chunga Sevilla</h1>
+        <p>Situado en una de las zonas más modernas de la ciudad, "la Gorda de las Setas" ofrece una amplia variedad de productos de comida mediterránea. Un ambiente expléndido para todo tipo de público. Además se encuentra cerca de pubs donde seguir disfrutando de una larga noche.</p>
+        <span class="icono"><i class="material-icons center danger ">access_time</i>12:00 - 23:00</span>
+        <span class="icono"><i class="material-icons center danger">place</i>Las Setas nº 4</span>
+        <span class="icono"><i class="material-icons center danger">date_range</i>De Lunes a Domingo</span>
+    </div>
+    <div class="col l6 m6 s12">
+        <img src="../../../assets/fondoChunga.jpg" class="responsive-img" alt="">
+    </div>
+</div>
+<div class="row restaurant">
+    <div class="col l6 m6 s12 info">
+        <h1>Mesones El Serranito</h1>
+        <p>Situado en una de las zonas más modernas de la ciudad, "la Gorda de las Setas" ofrece una amplia variedad de productos de comida mediterránea. Un ambiente expléndido para todo tipo de público. Además se encuentra cerca de pubs donde seguir disfrutando de una larga noche.</p>
+        <span class="icono"><i class="material-icons center danger ">access_time</i>12:00 - 23:00</span>
+        <span class="icono"><i class="material-icons center danger">place</i>Las Setas nº 4</span>
+        <span class="icono"><i class="material-icons center danger">date_range</i>De Lunes a Domingo</span>
+    </div>
+    <div class="col l6 m6 s12">
+        <img src="../../../assets/fondoSerrano.jpg" class="responsive-img" alt="">
     </div>
 </div>

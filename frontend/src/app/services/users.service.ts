@@ -22,6 +22,14 @@ export class UsersService {
     };
     return this.http.post(this.url + 'user/login',params,httpOptions);
   }
+  register(params){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post(this.url + 'user/register', params, httpOptions);
+  }
 
   getIdentity(){
     const identity = JSON.parse(localStorage.getItem('identity'));

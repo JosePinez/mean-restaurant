@@ -68,7 +68,7 @@ userCtrl.getUsers =  async (req,res) =>{
         const users = await User.find();
         res.json(users);
     }catch(err){
-        res.json({status:'Teachers not found'})
+        res.json({status:'Users not found'})
     }
 
 }

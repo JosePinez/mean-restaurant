@@ -15,6 +15,7 @@ declare var M: any;
 export class AppComponent {
   public title = 'Restaurant App';
   public user: User;
+  public user_register: User;
   public identity;
   public token;
   ngOnInit(){
@@ -23,6 +24,7 @@ export class AppComponent {
   }
   constructor(private userService: UsersService, private router: Router) {
     this.user = new User('', '', '', '', '', 'ROLE_USER', '');
+    this.user_register = new User('', '', '', '', '', 'ROLE_USER', '');
   }
   logOut(){
     localStorage.removeItem('identity');
@@ -32,6 +34,31 @@ export class AppComponent {
     this.token = null;
     this.router.navigate(['/']);
     M.toast({html: 'Logout successfully, thanks for your visit'});
+  }
+
+  public onSubmitRegister(form: NgForm){
+    const params = {
+      name: form.value.name,
+      surname: form.value.surname,
+      email: form.value.email,
+      password: form.value.password,
+      role: 'ROLE_USER',
+      image: ''
+    };
+    this.userService.register(params).subscribe(
+      response =>{
+        const user = response['user'];
+        this.user_register = user;
+        if(!user._id){
+          alert("Error to register");
+        }else{
+          M.toast({html:'User register successfully. You can login using: '+this.user_register.email});
+          this.user_register = new User('', '', '', '', '', 'ROLE_USER', '');
+        }
+      }, error =>{
+        M.toast({html: 'Not register'});
+      }
+    );
   }
   public onSubmitLogin(form: NgForm) {
     const params = {

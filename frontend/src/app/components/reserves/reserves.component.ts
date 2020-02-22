@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReservesService } from '../../services/reserves.service';
 import { NgForm } from '@angular/forms';
 import { Reserve } from 'src/app/models/reserve';
-
+import { UsersService} from '../../services/users.service';
 
 
 declare var M: any;
@@ -13,11 +13,14 @@ declare var M: any;
   providers: [ReservesService]
 })
 export class ReservesComponent implements OnInit {
-
-  constructor(private reserveService: ReservesService) { }
+  public identity = null;
+  public token = null;
+  constructor(private reserveService: ReservesService, private userService: UsersService) { }
 
   ngOnInit() {
     this.getReserves();
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();
   }
 
 

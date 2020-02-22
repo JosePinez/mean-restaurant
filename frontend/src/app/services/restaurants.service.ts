@@ -21,12 +21,30 @@ export class RestaurantsService {
     return this.http.get(this.URL_API,httpOptions);
   }
   createRestaurant(restaurant: Restaurant){
-    return this.http.post(this.URL_API, restaurant);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.post(this.URL_API, restaurant,httpOptions);
   }
   editRestaurant(restaurant: Restaurant){
-    return this.http.put(this.URL_API + `/${restaurant._id}`, restaurant);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.put(this.URL_API + `/${restaurant._id}`, restaurant,httpOptions);
   }
   deleteRestaurant(_id: string){
-    return this.http.delete(this.URL_API + `/${_id}`)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.delete(this.URL_API + `/${_id}`,httpOptions)
   }
 }

@@ -24,12 +24,30 @@ export class ReservesService {
     return this.http.get(this.URL_API,httpOptions);
   }
   createReserve(reserve: Reserve) {
-    return this.http.post(this.URL_API, reserve);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.post(this.URL_API, reserve,httpOptions);
   }
   editReserve(reserve: Reserve) {
-    return this.http.put(this.URL_API + `/${reserve._id}`, reserve);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.put(this.URL_API + `/${reserve._id}`, reserve,httpOptions);
   }
   deleteReserve(_id: String) {
-    return this.http.delete(this.URL_API + `/${_id}`);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem('token')
+      })
+    }
+    return this.http.delete(this.URL_API + `/${_id}`, httpOptions);
   }
 }

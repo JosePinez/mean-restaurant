@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RestaurantsService } from '../../services/restaurants.service';
 import { NgForm } from '@angular/forms';
 import { Restaurant } from 'src/app/models/restaurant';
+import { UsersService} from '../../services/users.service';
 
 declare var M: any;
 @Component({
@@ -11,12 +12,23 @@ declare var M: any;
   providers: [RestaurantsService]
 })
 export class RestaurantsComponent implements OnInit {
+  public identity = null;
+  public token = null;
+  constructor(private restaurantService: RestaurantsService,private userService: UsersService) { }
 
-  constructor(private restaurantService: RestaurantsService) { }
 
   ngOnInit() {
     this.getRestaurants();
-  }
+    this.identity = this.userService.getIdentity();
+    this.token = this.userService.getToken();   
+       
+  } 
+  collapse(){
+      var elems = document.querySelectorAll('.collapsible');
+      var instances = M.Collapsible.init(elems,{
+        accordion: false
+      });
+  } 
   addRestaurant(form: NgForm) {
     if (form.value._id) {
       this.restaurantService.editRestaurant(form.value)
@@ -39,7 +51,6 @@ export class RestaurantsComponent implements OnInit {
     this.restaurantService.getRestaurants()
       .subscribe(res => {
         this.restaurantService.restaurants = res as Restaurant[];
-        console.log(res);
       })
   }
   editRestaurant(restaurant: Restaurant) {
@@ -60,4 +71,5 @@ export class RestaurantsComponent implements OnInit {
         })
     }
   }
+  
 }

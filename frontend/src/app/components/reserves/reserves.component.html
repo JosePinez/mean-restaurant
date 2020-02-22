@@ -1,6 +1,5 @@
 <h4 class="align center">RESERVES</h4>
-<hr>
-<div class="container">
+<div class="container-fluid ">
     <div class="row">
         <div class="col s5">
             <div class="card">
@@ -35,7 +34,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s7">
+        <div class="col s7" *ngIf='identity.role.indexOf("ROLE_ADMIN")>=0'>
             <table>
                 <thead>
                     <th>Nombre restaurant</th>
@@ -44,7 +43,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let reserve of reserveService.reserves">
-                        <td >{{reserve.name_restaurant}}</td>
+                        <td>{{reserve.name_restaurant}}</td>
                         <td>{{reserve.date}}</td>
                         <td>{{reserve.time}}</td>
                         <td>

@@ -1,8 +1,7 @@
 <div *ngIf="identity">
   <app-menu></app-menu>
-  <div>
-    Hi {{identity.name}}
-    <span class="btn btn-warning" (click)="logOut()">Log out here</span>
+  <div class="menu">
+    <a class=" waves-effect waves-light btn red" (click)="logOut()"><i class="material-icons right danger">exit_to_app</i>Bienvenido {{identity.name}}</a>
   </div>
   <router-outlet></router-outlet>
 </div>
@@ -23,24 +22,64 @@
     </div>
     <div class="col s6">
       <h2>Register</h2>
-      <form action="" class="col s10">
+      <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)" class="col s10">
         <p>
-          <label for="">Name</label><input type="text" name="" id="" required>
+          <label for="">Name</label><input type="text" #name="ngModel" name="name" [(ngModel)]="user_register.name" required>
+          <span *ngIf="name.touched && !name.valid">This field is required</span>
         </p>
         <p>
-          <label for="">Surname</label><input type="text" name="" id="" required>
+          <label for="">Surname</label><input type="text" #surname="ngModel" name="surname" [(ngModel)]="user_register.surname" required>
+          <span *ngIf="surname.touched && !surname.valid">This field is required</span>
         </p>
         <p>
-          <label for="">Email</label><input type="text" name="" id="" required>
+          <label for="">Email</label><input type="email" #email="ngModel" name="email" [(ngModel)]="user_register.email" required>
+          <span *ngIf="email.touched && !email.valid">This field is required</span>
         </p>
         <p>
-          <label for="">Password</label><input type="password" name="" id="" required>
+          <label for="">Password</label><input type="password" #password="ngModel" name="password"[(ngModel)]="user_register.password" required>
+          <span *ngIf="password.touched && !password.valid">This field is required</span>
         </p>
         <input type="submit" value="Register" class="btn">
       </form>
     </div>
   </div>
 </div>
+<footer class="page-footer teal">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h4 class="white-text">Company Bio</h4>
+        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+      </div>
+      <div class="col l3 s12">
+        <h4 class="white-text">Settings</h4>
+        <ul>
+          <li><a class="white-text" href="#!">Link 1</a></li>
+          <li><a class="white-text" href="#!">Link 2</a></li>
+          <li><a class="white-text" href="#!">Link 3</a></li>
+          <li><a class="white-text" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+      <div class="col l3 s12">
+        <h4 class="white-text">Connect</h4>
+        <ul>
+          <li><a class="white-text" href="#!">Link 1</a></li>
+          <li><a class="white-text" href="#!">Link 2</a></li>
+          <li><a class="white-text" href="#!">Link 3</a></li>
+          <li><a class="white-text" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+    Made by <a class="brown-text text-lighten-3">José Manuel Piñez</a>
+    </div>
+  </div>
+</footer>
+
 
 
 
