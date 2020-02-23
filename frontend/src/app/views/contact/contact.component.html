@@ -3,29 +3,23 @@
 <div class="row">
     <div class="col l6">
         <article class=" ">
-            <form method="POST" action="formulario-contacto.php">
+            <form (ngSubmit)="contactForm(form.value)" #form="ngForm">
                 <div class="input-field">
                     <i class="material-icons prefix">perm_identity</i>
                     <label for="nombre">Nombre</label>
-                    <input type="text" name="nombre" required>
+                    <input type="text" name="nombre" ngModel required>
                 </div>
         
                 <div class="input-field">
-                    <i class="material-icons prefix">person_pin</i>
-                    <label for="apellido">Apellido</label>
-                    <input type="text" name="apellido" required>
-                </div>
-                
-                <div class="input-field">
                     <i class="material-icons prefix">email</i>
                     <label for="email">Email</label>
-                    <input type="email" name="email" required>
+                    <input type="email" name="email" ngModel required>
                 </div>
         
                 <div class="input-field">
                     <i class="material-icons prefix">mode_edit</i>
                     <label for="mensaje">Mensaje</label>
-                    <textarea name="mensaje" id="" rows="10" class="materialize-textarea"  length="140" required></textarea>
+                    <textarea name="mensaje" ngModel rows="10" class="materialize-textarea"  length="140" required></textarea>
                 </div>
                 
                 <p class="center-align">

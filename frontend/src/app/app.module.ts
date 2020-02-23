@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './views/home/home.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { MenuComponent } from './menu/menu/menu.component';
+import { MessageService } from './services/message.service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MenuComponent } from './menu/menu/menu.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
