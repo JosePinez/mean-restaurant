@@ -12,7 +12,7 @@ export class ReservesService {
   public selectedReserve: Reserve;
   public reserves: Reserve[];
   constructor(private http: HttpClient) {
-    this.selectedReserve = new Reserve();
+    this.selectedReserve = new Reserve(); 
   }
   getReserves() {
     const httpOptions = {

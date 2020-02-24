@@ -3,26 +3,33 @@ import { ReservesService } from '../../services/reserves.service';
 import { NgForm } from '@angular/forms';
 import { Reserve } from 'src/app/models/reserve';
 import { UsersService} from '../../services/users.service';
-
+import { Restaurant} from '../../models/restaurant';
+import { RestaurantsService} from '../../services/restaurants.service';
 
 declare var M: any;
 @Component({
   selector: 'app-reserves',
   templateUrl: './reserves.component.html',
   styleUrls: ['./reserves.component.css'],
-  providers: [ReservesService]
+  providers: [ReservesService, RestaurantsService]
 })
 export class ReservesComponent implements OnInit {
   public identity = null;
   public token = null;
-  constructor(private reserveService: ReservesService, private userService: UsersService) { }
+  constructor(private reserveService: ReservesService, private userService: UsersService, private restaurantService: RestaurantsService) { }
 
   ngOnInit() {
     this.getReserves();
+    this.getRestaurants();
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
   }
-
+  getRestaurants() {
+    this.restaurantService.getRestaurants()
+      .subscribe(res => {
+        this.restaurantService.restaurants = res as Restaurant[];
+      })
+  }
 
   addReserve(form: NgForm) {
     if (form.value._id) {
